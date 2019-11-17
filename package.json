@@ -1,0 +1,31 @@
+{
+  "name": "opt-verification",
+  "version": "1.0.0",
+  "description": "OTP verification without using any database or cache",
+  "main": "index.js",
+  "scripts": {
+    "start": "nodemon app.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/bilashcse/opt-verification.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/bilashcse/opt-verification/issues"
+  },
+  "homepage": "https://github.com/bilashcse/opt-verification#readme",
+  "devDependencies": {
+    "eslint": "^6.6.0",
+    "eslint-config-airbnb-base": "^14.0.0",
+    "eslint-plugin-import": "^2.18.2"
+  },
+  "dependencies": {
+    "crypto": "^1.0.1",
+    "express": "^4.17.1",
+    "nodemon": "^1.19.4",
+    "otp-generator": "^1.1.0"
+  }
+}
