@@ -9,10 +9,10 @@ app.listen(port, () => console.warn(`Server running on localhost:${port}`));
 
 app.get('/generate', async (req, res) => {
   try {
-    const result = await generateOTP(req.query.mobileNo);
+    const isValid = await generateOTP(req.query.mobileNo);
     res.json({
       isError: false,
-      hash: result.hash,
+      isValid,
     });
   } catch (err) {
     console.error(err.message);
@@ -24,10 +24,11 @@ app.get('/generate', async (req, res) => {
 
 app.get('/verify', async (req, res) => {
   try {
-    const result = await verifyOTP(req.query.mobileNo, req.query.otp, req.query.hash);
+    const { mobileNo, otp, hash } = req.query;
+    const isVerified = await verifyOTP({ mobileNo, otp, hash });
     res.json({
       isError: false,
-      verified: result.verified,
+      verified: isVerified,
     });
   } catch (err) {
     console.error(err.message);

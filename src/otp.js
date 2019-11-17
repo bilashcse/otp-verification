@@ -1,34 +1,39 @@
 const otpGenerator = require('otp-generator');
 const crypto = require('crypto');
 
-const algorithm = 'sha256';
+const hashAlgorithm = 'sha256';
+const secret = 'hello@123!';
+
 const generateValidNUmber = (phone) => `880${/(\d){10}$/.exec(phone)[0]}`;
 
 const generateOTP = async (phone) => {
-  const secret = 'hello123';
   const phoneNo = generateValidNUmber(phone);
   const otp = otpGenerator.generate(6, { upperCase: false, specialChars: false });
-
-
-  const ttl = 5 * 60 * 1000; // Expires after in Minutes, converteed to miliseconds
-  const expires = Date.now() + ttl; // timestamp to 5 minutes in the future
-  const data = `${phoneNo}.${otp}.${expires}`; // phone.otp.expiry_timestamp
-  const d = {
+  const data = {
     phoneNo,
     otp,
   };
-  const hashBase = crypto.createHmac(algorithm, secret).update(JSON.stringify(d)).digest('hex'); // creating SHA256 hash of the data
-  const hash = `${hashBase}.${expires}`; // Hash.expires, format to send to the user
-  console.log(hash);
-  return hash;
+  const hash = crypto.createHmac(hashAlgorithm, secret).update(JSON.stringify(data)).digest('hex'); // creating SHA256 hash of the data
+  return { otp, hash };
 };
 
-const verifyOTP = async (phone, otp) => {
+const verifyOTP = async ({ mobileNo, otp, hash }) => {
+  if (!hash) {
+    throw new Error('Sorry, didn\'t get hash for this OTP');
+  }
+  const phoneNo = generateValidNUmber(mobileNo);
+  const data = {
+    phoneNo,
+    otp,
+  };
+  const newHash = crypto.createHmac(hashAlgorithm, secret).update(JSON.stringify(data)).digest('hex');
 
+  let isValid = false;
+  if (newHash === hash) {
+    isValid = true;
+  }
+  return isValid;
 };
-
-
-generateOTP('01717346500');
 
 module.exports = {
   generateOTP,
