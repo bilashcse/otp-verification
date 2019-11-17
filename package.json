@@ -1,18 +1,19 @@
 {
   "name": "opt-verification",
-  "version": "1.0.0",
+  "version": "0.0.1",
   "description": "OTP verification without using any database or cache",
-  "main": "index.js",
+  "main": "app.js",
   "scripts": {
-    "start": "nodemon app.js"
+    "start": "nodemon app.js",
+    "test": "mocha"
   },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/bilashcse/opt-verification.git"
   },
   "keywords": [],
-  "author": "",
-  "license": "ISC",
+  "author": "Bilash",
+  "license": "MIT",
   "bugs": {
     "url": "https://github.com/bilashcse/opt-verification/issues"
   },
