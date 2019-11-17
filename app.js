@@ -9,10 +9,10 @@ app.listen(port, () => console.warn(`Server running on localhost:${port}`));
 
 app.get('/generate', async (req, res) => {
   try {
-    const isValid = await generateOTP(req.query.mobileNo);
+    const result = await generateOTP(req.query.mobileNo);
     res.json({
       isError: false,
-      isValid,
+      hash: result.hash,
     });
   } catch (err) {
     console.error(err.message);
