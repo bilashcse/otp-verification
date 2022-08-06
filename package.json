@@ -28,6 +28,6 @@
     "crypto": "^1.0.1",
     "express": "^4.17.1",
     "nodemon": "^1.19.4",
-    "otp-generator": "^1.1.0"
+    "otp-generator": "^3.0.0"
   }
 }
